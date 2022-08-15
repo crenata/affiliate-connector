@@ -23,6 +23,13 @@ class RequestHelper implements RequestHelperInterface {
     protected $method = HttpMethodConstant::GET;
 
     /**
+     * Body request
+     *
+     * @var array
+     */
+    protected $body = [];
+
+    /**
      * Timeout request in sec
      *
      * @var int
@@ -64,6 +71,16 @@ class RequestHelper implements RequestHelperInterface {
     }
 
     /**
+     * @param array $body
+     * @return $this
+     */
+    public function setBody($body) {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
      * @param int $timeout
      * @return $this
      */
@@ -99,11 +116,21 @@ class RequestHelper implements RequestHelperInterface {
             ->send();
 
         try {
+            if ($this->method === HttpMethodConstant::POST ||
+                $this->method === HttpMethodConstant::PUT ||
+                $this->method === HttpMethodConstant::PATCH
+            ) {
+                $body = "form_params";
+            } else {
+                $body = "query";
+            }
             return Http::withToken($token)
                 ->connectTimeout($this->timeout)
                 ->timeout($this->timeout)
                 ->withOptions($this->options)
-                ->send($this->method, $this->url)
+                ->send($this->method, $this->url, [
+                    $body => $this->body
+                ])
                 ->json();
         } catch (\Exception $e) {
             return ConnectorResponse::getInstance()

@@ -13,7 +13,17 @@ return [
         [
             "method" => HttpMethodConstant::GET,
             "url" => "products",
-            "controller" => "Crenata\AffiliateConnector\Http\Controllers\ProductController@getProducts"
+            "controller" => "Crenata\AffiliateConnector\Http\Controllers\ConnectorController@getProducts"
+        ],
+        [
+            "method" => HttpMethodConstant::GET,
+            "url" => "product-with-ids",
+            "controller" => "Crenata\AffiliateConnector\Http\Controllers\ConnectorController@getProductWithIds"
+        ],
+        [
+            "method" => HttpMethodConstant::GET,
+            "url" => "find-product",
+            "controller" => "Crenata\AffiliateConnector\Http\Controllers\ConnectorController@findProduct"
         ]
     ]
 ];
