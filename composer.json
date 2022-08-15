@@ -1,0 +1,30 @@
+{
+    "name": "crenata/affiliate-connector",
+    "description": "A Connector between two Laravel Framework",
+    "type": "library",
+    "require": {
+        "kornrunner/ethereum-address": "^0.3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.6"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Crenata\\AffiliateConnector\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hafiizh Ghulam",
+            "email": "hafiizh.ghulam@frisidea.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Crenata\\AffiliateConnector\\Providers\\ConnectorServiceProvider"
+            ]
+        }
+    }
+}
