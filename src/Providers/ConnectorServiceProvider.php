@@ -5,6 +5,7 @@ namespace Crenata\AffiliateConnector\Providers;
 use Crenata\AffiliateConnector\Console\Commands\GenerateConnector;
 use Crenata\AffiliateConnector\Helpers\RequestHelper;
 use Crenata\AffiliateConnector\Helpers\ResponseHelper;
+use Crenata\AffiliateConnector\Helpers\UrlHelper;
 use Crenata\AffiliateConnector\Http\Middleware\ConnectorMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -57,6 +58,9 @@ class ConnectorServiceProvider extends ServiceProvider {
         });
         $this->app->singleton("ConnectorResponse", function () {
             return new ResponseHelper();
+        });
+        $this->app->singleton("ConnectorUrl", function () {
+            return new UrlHelper();
         });
     }
 

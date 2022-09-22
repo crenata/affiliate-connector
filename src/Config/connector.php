@@ -25,5 +25,14 @@ return [
             "url" => "find-product",
             "controller" => "Crenata\AffiliateConnector\Http\Controllers\ConnectorController@findProduct"
         ]
+    ],
+
+    "affiliate_url" => [
+        "base" => "http://localhost:8001/api/v1/",
+        "submit_transaction" => "transaction/submit"
+    ],
+
+    "integrated_url" => [
+        "base" => "http://localhost:8000/api/v1/"
     ]
 ];
