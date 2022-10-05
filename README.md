@@ -16,23 +16,23 @@ This package for internal purposes, any incoming issues won't be responded.
 
 ## Installation
 Run these command into your laravel project folder.
-```
+```bash
 composer require crenata/affiliate-connector
 ```
 
 ### Publish Configuration
 You need to publish the package's config. To publish configuration, run the following command.
-```
+```bash
 php artisan vendor:publish --tag=connector-config
 ```
 
 ### Generate Authentication Bridge
 To secure the bridge, You must generate `secret key` and `private key` to your `server` and `client` project. To generate the key, run the following command.
-```
+```bash
 php artisan connector:generate
 ```
 And you will see.
-```
+```bash
 Server : CONNECTOR_SERVER=dc6917876732a081d1d35b225aedab5bae8e5438
 Client : CONNECTOR_CLIENT=ba770d272202ad9b938638687760e2ec96a7e954b19447fd5f412c615e2c7ef7
 
@@ -113,6 +113,35 @@ Expected Return :
     "description" => string,
     "price" => int
 ]
+```
+
+### Submit Transaction
+Submit transaction data to Affiliate Database. So, Affiliate can count rewards.
+```
+$response = ConnectorRequest::getInstance()
+    ->setUrl(
+        ConnectorUrl::getInstance()
+            ->affiliate()
+            ->getUrl("submit_transaction")
+    )
+    ->setMethod(HttpMethodConstant::POST) // Refer to Crenata\AffiliateConnector\Constants\HttpMethodConstant
+    ->setBody([
+        "product_id" => 1,
+        "user_email" => "user@gmail.com",
+        "transaction_code" => "INV-2022-IX-05-12-00",
+        "product_name" => "Product Name",
+        "product_description" => "Product Desc",
+        "product_price" => 100000,
+        "status" => TransactionStatusConstant::PENDING // Refer to Crenata\AffiliateConnector\Constants\TransactionStatusConstant
+    ])
+    ->setTimeout(5)
+    ->send();
+
+$result = ConnectorResponse::getInstance()->response($response);
+
+if ($result->isSuccess()) {
+    // your code here ...
+}
 ```
 
 ## Authors
